@@ -1,5 +1,5 @@
 import React from 'react'
-import { Divider, Card } from 'antd'
+import { Divider, Card, TreeSelect } from 'antd'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { Base64 } from 'js-base64'
@@ -18,9 +18,32 @@ class Preview extends React.Component {
 
   render () {
     const { code, match: { url }, location: { search } } = this.props
+
+    const TreeNode = TreeSelect.TreeNode;
+
     return <div>
       <Card title='Preview'>
         <div ref={div => { this.container = div }}>{code}</div>
+      </Card>
+      <Card title="Graph">
+        <TreeSelect
+          showSearch
+          style={{ width: 300 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          placeholder="Please select"
+          allowClear
+          treeDefaultExpandAll
+        >
+          <TreeNode disabled={true} value="parent 1" title="in a conservation area?" key="0-1">
+            <TreeNode value="in a conservation area? / yes" title="yes" key="random" />
+            <TreeNode value="in a conservation area? / no" title="no" key="random1">
+              <TreeNode value="no2" title="Does the principal elevation of the?" key="random8" />
+            </TreeNode>
+            <TreeNode value="parent 1-1" title="parent 1-1" key="random2">
+              <TreeNode value="sss" title={<b style={{ color: '#08c' }}>sss</b>} key="random3" />
+            </TreeNode>
+          </TreeNode>
+        </TreeSelect>
       </Card>
       <Card title='Actions'>
         <div className='links'>
